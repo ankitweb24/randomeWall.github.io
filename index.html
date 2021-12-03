@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      * {
+        padding: 0%;
+        margin: 0%;
+        box-sizing: border-box;
+      }
+      .main_div {
+        width: 100vw;
+        height: 100vh;
+        background-color: rgb(0, 0, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+      .center_div {
+        width: auto;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        /* justify-content: flex-start; */
+        align-items: center;
+        flex-wrap: wrap;
+        max-height: 90%;
+        overflow: auto;
+      }
+      .center_div a{
+          position: relative;
+      }
+      .center_div a .fa-download{
+          position: absolute;
+          color: #fff;
+          z-index: 99;
+          right: 8%;
+          bottom: 7%;
+          display: none;
+      }
+      img {
+        user-select: none;
+        margin: 5px;
+        position: relative;
+        border-radius: 10px;
+        transition-duration: 400ms;
+      }
+      img:hover {
+        opacity: 0.9;
+        transform: scale(.9);
+      }
+
+      .center_div::-webkit-scrollbar {
+        overflow: hidden;
+      }
+
+      @media (max-width: 768px) {
+        .center_div {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main_div">
+      <div class="center_div" id="center_div"></div>
+    </div>
+    <script>
+      const centerdiv = document.getElementById("center_div");
+
+      fetch("https://jsonplaceholder.typicode.com/photos?_limit=200")
+        .then((apiData) => apiData.json())
+        .then((jsonData) => {
+          // console.log(jsonData[0].url);
+          jsonData.map((val) => {
+            key = val.id;
+            let downloadBtn = document.createElement("a");
+            let img = document.createElement("img");
+            let imgSrc =
+              (img.src = `https://picsum.photos/140/240?random=${key}`);
+            downloadBtn.setAttribute("href", imgSrc);
+            console.log(downloadBtn);
+            downloadBtn.appendChild(img);
+            centerdiv.appendChild(downloadBtn);
+            
+          });
+        });
+    </script>
+  </body>
+</html>
